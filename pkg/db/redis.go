@@ -15,7 +15,7 @@ type redisClient struct {
 }
 
 //GetClient get the redis client
-func initialize() *redisClient {
+func Initialize() *redisClient {
 	c := redis.NewClient(&redis.Options{
 		Addr: "127.0.0.1:6379",
 	})
@@ -28,7 +28,7 @@ func initialize() *redisClient {
 }
 
 //GetKey get key
-func (client *redisClient) getKey(key string, src interface{}) error {
+func (client *redisClient) GetKey(key string, src interface{}) error {
 	val, err := client.c.Get(key).Result()
 	if err == redis.Nil || err != nil {
 		return err
@@ -41,7 +41,7 @@ func (client *redisClient) getKey(key string, src interface{}) error {
 }
 
 //SetKey set key
-func (client *redisClient) setKey(key string, value interface{}, expiration time.Duration) error {
+func (client *redisClient) SetKey(key string, value interface{}, expiration time.Duration) error {
 	cacheEntry, err := json.Marshal(value)
 	if err != nil {
 		return err
