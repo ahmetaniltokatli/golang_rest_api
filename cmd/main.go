@@ -13,7 +13,7 @@ func main() {
 
 	router.HandleFunc("/getMemoryData/{key}", handlers.GetMemoryData).Methods(http.MethodGet)
 	router.HandleFunc("/setMemoryData", handlers.SetMemoryData).Methods(http.MethodPost)
-	router.HandleFunc("/flushMemoryData", handlers.FlushMemoryData).Methods(http.MethodDelete)
+	router.HandleFunc("/flushMemoryData", handlers.FlushMemoryData).Methods(http.MethodGet)
 
 	log.Println("API is running!")
 	http.ListenAndServe(":4000", router)

@@ -1,15 +1,19 @@
 package handlers
 
 import (
-	"encoding/json"
 	redis "github.com/ahmetaniltokatli/golang_rest_api/pkg/db"
+	"log"
 	"net/http"
+	"os"
 )
 
 func FlushMemoryData(w http.ResponseWriter, r *http.Request) {
 	redisClient := redis.Initialize()
-	redisData := redisClient.FlushMemoryData()
-	json.NewEncoder(w).Encode(redisData)
+	redisClient.FlushMemoryData()
+	e := os.Remove("tmp/data.json")
+	if e != nil {
+		log.Fatal(e)
+	}
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

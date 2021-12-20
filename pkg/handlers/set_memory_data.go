@@ -20,14 +20,14 @@ func SetMemoryData(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln(err)
 	}
 
-	var setKeyRequest models.SetKeyRequest
-	json.Unmarshal(body, &setKeyRequest)
+	var redisDataModel models.RedisData
+	json.Unmarshal(body, &redisDataModel)
 
 	redisClient := redis.Initialize()
-	redisData := redisClient.SetKey(setKeyRequest.Key, setKeyRequest.Value, time.Minute*REDIS_DATA_TTL)
+	redisData := redisClient.SetKey(redisDataModel.Key, redisDataModel.Value, time.Minute*REDIS_DATA_TTL)
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(setKeyRequest.Value)
+	json.NewEncoder(w).Encode(redisDataModel.Value)
 	json.NewEncoder(w).Encode(redisData)
 }
