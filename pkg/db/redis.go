@@ -36,6 +36,11 @@ func (client *redisClient) GetKey(key string) string {
 	return val
 }
 
+func (client *redisClient) GetAllKeys() []string {
+	test := client.c.Keys("*")
+	return test.Val()
+}
+
 //SetKey set key
 func (client *redisClient) SetKey(key string, value string, expiration time.Duration) error {
 	err := client.c.Set(key, value, expiration).Err()

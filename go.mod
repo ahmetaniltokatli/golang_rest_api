@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/gorilla/mux v1.8.0
-	github.com/ahmetaniltokatli/golang_rest_api v1.0.0
+	github.com/robfig/cron v1.2.0
 )
 
 require (
