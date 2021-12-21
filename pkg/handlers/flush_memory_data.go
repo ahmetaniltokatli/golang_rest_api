@@ -9,10 +9,15 @@ import (
 
 func FlushMemoryData(w http.ResponseWriter, r *http.Request) {
 	var response models.Response
-	response.Success = ExistFile("tmp/data.json")
+	response.Success = true
 
 	redisClient := redis.Initialize()
-	redisClient.FlushMemoryData()
+	err := redisClient.FlushMemoryData()
+
+	if err != nil {
+		response.Success = false
+		response.ErrorMessage = err.Error()
+	}
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

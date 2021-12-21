@@ -37,8 +37,8 @@ func (client *redisClient) GetKey(key string) string {
 }
 
 func (client *redisClient) GetAllKeys() []string {
-	test := client.c.Keys("*")
-	return test.Val()
+	keys := client.c.Keys("*")
+	return keys.Val()
 }
 
 //SetKey set key
